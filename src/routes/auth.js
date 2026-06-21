@@ -53,12 +53,12 @@ authRouter.post("/login", async (req, res) => {
     // const user = await User.findOne({ email: email });
     const user = await User.findOne({ email }).select(USER_DATA_STRING);
 
-    if (!user) res.status(404).json({ message: "Invalid credentials!" });
+    if (!user) return res.status(404).json({ message: "Invalid credentials!" });
 
     const isPasswordValid = await user.validatePassword(password);
 
     if (!isPasswordValid)
-      res.status(401).json({ message: "Invalid credentials!" });
+      return res.status(401).json({ message: "Invalid credentials!" });
 
     const token = await user.getJWT();
     // _id is the data we are hiding and second param is the secret key which only server knows
