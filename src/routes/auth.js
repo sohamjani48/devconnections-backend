@@ -41,6 +41,7 @@ authRouter.post("/signup", async (req, res) => {
     res.cookie("token", token, { expires: new Date(Date.now() + 1 * 3600000) });
     res.json({ message: "User created successfully!", user: createdUser });
   } catch (err) {
+    console.log("error in signup", JSON.stringify(err));
     res.status(400).json({ message: err.message });
   }
 });
@@ -67,6 +68,7 @@ authRouter.post("/login", async (req, res) => {
     user.password = undefined;
     res.json({ user });
   } catch (err) {
+    console.log("error in login", JSON.stringify(err));
     res.status(400).json({ message: `Error in login: ${err.message}` });
   }
 });
